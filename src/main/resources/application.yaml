@@ -3,7 +3,7 @@ ktor:
         modules:
             - ru.hram.ApplicationKt.module
     deployment:
-        port: 8080
+        port: 80
 telegram:
     key: "$TELEGRAM_KEY:443566725:"
     group_id: "$TELEGRAM_GROUP_ID:"

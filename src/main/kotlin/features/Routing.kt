@@ -47,21 +47,20 @@ fun Application.configureRouting() {
             }
 
             val result = fetchHtml("https://github.com/trending/kotlin?since=daily")
-            val repos = parseTrendingRepos(result)
-            val newRepos = repos.filter { !isRepoSaved(it.toDbName()) }
-            newRepos.firstOrNull()?.apply {
-                bot.sendMessage(ChatId.fromId(telegramGroupId), "${this.url}\nStars: ${this.stars}")
-                    .onSuccess {
-                        saveRepo(this.toDbName())
-                    }
-            }
-//            newRepos.forEach { repo ->
-//                bot.sendMessage(ChatId.fromId(telegramGroupId), "${repo.url}\nStars: ${repo.stars}")
+            val newRepos = parseTrendingRepos(result).filter { !isRepoSaved(it.toDbName()) }
+//            newRepos.firstOrNull()?.apply {
+//                bot.sendMessage(ChatId.fromId(telegramGroupId), "${this.url}\nStars: ${this.stars}")
 //                    .onSuccess {
-//                        saveRepo(repo.toDbName())
+//                        saveRepo(this.toDbName())
 //                    }
-//                delay(5000)
 //            }
+            newRepos.forEach { repo ->
+                bot.sendMessage(ChatId.fromId(telegramGroupId), "${repo.url}\nStars: ${repo.stars}")
+                    .onSuccess {
+                        saveRepo(repo.toDbName())
+                    }
+                delay(5000)
+            }
             call.respond(newRepos)
         }
     }

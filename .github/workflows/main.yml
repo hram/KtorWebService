@@ -1,0 +1,15 @@
+name: Regular CURL Request
+on:
+  schedule:
+    - cron: '*/15 * * * *'   # каждые 15 минут
+  workflow_dispatch:         # чтобы можно было запустить вручную через UI
+
+jobs:
+  send-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send CURL Request
+        run: |
+          curl -X GET https://my-ktor-app-l2io.onrender.com/trending \
+               -H "Content-Type: application/json" \
+               -H "token: ${{ vars.AUTH_TOKEN }}"

@@ -1,15 +1,17 @@
-name: Regular CURL Request
+name: Fetch Trending Data
 on:
   schedule:
     - cron: '*/15 * * * *'   # каждые 15 минут
-  workflow_dispatch:         # чтобы можно было запустить вручную через UI
+  workflow_dispatch:         # возможность запуска вручную через UI
 
 jobs:
-  send-request:
+  trigger-trending:
     runs-on: ubuntu-latest
     steps:
-      - name: Send CURL Request
+      - name: Call Trending Endpoint
+        env:
+          API_TOKEN: ${{ secrets.API_TOKEN }}
         run: |
-          curl --location https://my-ktor-app-l2io.onrender.com/trending \
-               -H "Content-Type: application/json" \
-               -H "token: tkn_aB3cD5eF7gH9jK2mN4pQ6rS8tU0vW1xZ3yA5bC7dE9fG2hJ4kL6nM8oP"
+          curl --location 'https://my-ktor-app-l2io.onrender.com/trending' \
+               --header 'Content-Type: application/json' \
+               --header "token: $API_TOKEN"

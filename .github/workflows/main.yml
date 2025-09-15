@@ -9,9 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Call Trending Endpoint
-        env:
-          API_TOKEN: ${{ secrets.API_TOKEN }}
         run: |
           curl --location 'https://my-ktor-app-l2io.onrender.com/trending' \
                --header 'Content-Type: application/json' \
-               --header "token: $API_TOKEN"
+               --header "token: tkn_aB3cD5eF7gH9jK2mN4pQ6rS8tU0vW1xZ3yA5bC7dE9fG2hJ4kL6nM8oP"

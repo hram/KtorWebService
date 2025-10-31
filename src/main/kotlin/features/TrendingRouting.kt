@@ -74,6 +74,9 @@ fun Application.configureTrendingRouting() {
         options("/printables") {
             call.respond(HttpStatusCode.OK)
         }
+        get("/health") {
+            call.respondText("OK")
+        }
     }
 }
 

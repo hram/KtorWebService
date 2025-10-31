@@ -12,7 +12,9 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import com.github.kotlintelegrambot.bot
 import com.github.kotlintelegrambot.entities.ChatId
+import io.ktor.http.*
 import io.ktor.server.plugins.*
+import io.ktor.server.request.*
 import kotlinx.coroutines.delay
 import org.jetbrains.exposed.v1.core.Table
 import org.jetbrains.exposed.v1.core.and
@@ -21,6 +23,7 @@ import org.jetbrains.exposed.v1.jdbc.Database
 import org.jetbrains.exposed.v1.jdbc.insert
 import org.jetbrains.exposed.v1.jdbc.selectAll
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
+import ru.hram.features.dto.ModelCard
 
 object Repos : Table("resources") {
     val name = varchar("name", 128)
@@ -62,6 +65,14 @@ fun Application.configureTrendingRouting() {
                 delay(5000)
             }
             call.respond(newRepos)
+        }
+
+        post("/printables") {
+            val request = call.receive<ModelCard>()
+            call.respond(request)
+        }
+        options("/printables") {
+            call.respond(HttpStatusCode.OK)
         }
     }
 }

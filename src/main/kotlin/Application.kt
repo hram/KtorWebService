@@ -12,7 +12,7 @@ fun main(args: Array<String>) {
 
 fun Application.module() {
     configureTrendingRouting()
-    configurePrintablesRouting()
+    //configurePrintablesRouting()
     configureContentNegotiation()
     configureCors()
 }

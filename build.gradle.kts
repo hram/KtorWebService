@@ -24,6 +24,7 @@ dependencies {
     implementation("io.ktor:ktor-server-config-yaml")
     implementation("io.ktor:ktor-server-content-negotiation-jvm")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm")
+    implementation("io.ktor:ktor-server-cors:$ktor_version")
 
     implementation("org.jsoup:jsoup:1.17.2")
     implementation("io.ktor:ktor-client-core:2.3.10")

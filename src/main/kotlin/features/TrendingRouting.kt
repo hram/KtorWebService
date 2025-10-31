@@ -27,7 +27,7 @@ object Repos : Table("resources") {
     val type = varchar("type", 128)
 }
 
-fun Application.configureRouting() {
+fun Application.configureTrendingRouting() {
     routing {
         val telegramKey = environment.config.property("telegram.key").getString()
         val telegramGroupId = environment.config.property("telegram.group_id").getString().toLong()

@@ -10,8 +10,8 @@ fun Application.configureCors() {
         allowMethod(HttpMethod.Options)
         allowHeader(HttpHeaders.ContentType)
         allowHeader(HttpHeaders.Authorization)
-        allowHost("https://www.printables.com")
+        //allowHost("https://www.printables.com")
         // ИЛИ разрешить всем (менее безопасно):
-        // allowHost("*")
+        allowHost("*")
     }
 }

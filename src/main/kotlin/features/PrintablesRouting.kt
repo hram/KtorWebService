@@ -16,7 +16,7 @@ import java.io.File
 
 fun Application.configurePrintablesRouting() {
     routing {
-        options("/ping") {
+        post("/ping") {
             call.respond(HttpStatusCode.OK)
         }
         post("/printables") {

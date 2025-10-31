@@ -1,13 +1,12 @@
 # Stage 1: сборка
-FROM openjdk:17-jdk-slim AS builder
+FROM gradle:8.5-jdk17 AS builder
 
 WORKDIR /app
 COPY . .
-RUN chmod +x ./gradlew
-RUN ./gradlew build -x test --no-daemon
+RUN gradle build -x test --no-daemon
 
 # Stage 2: запуск
-FROM openjdk:17-jre-slim
+FROM eclipse-temurin:17-jre-jammy
 
 WORKDIR /app
 COPY --from=builder /app/build/libs/*-all.jar ./app.jar

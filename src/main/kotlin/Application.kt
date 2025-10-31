@@ -1,6 +1,7 @@
 package ru.hram
 
 import io.ktor.server.application.*
+import ru.hram.features.configurePingRouting
 import ru.hram.features.configurePrintablesRouting
 import ru.hram.features.configureTrendingRouting
 import ru.hram.plugins.configureContentNegotiation
@@ -11,6 +12,7 @@ fun main(args: Array<String>) {
 }
 
 fun Application.module() {
+    configurePingRouting()
     configureTrendingRouting()
     configurePrintablesRouting()
     configureContentNegotiation()

@@ -16,9 +16,6 @@ import java.io.File
 
 fun Application.configurePrintablesRouting() {
     routing {
-//        post("/ping") {
-//            call.respond(HttpStatusCode.OK)
-//        }
         post("/printables") {
             val request = call.receive<ModelCard>()
             call.respond(request)

@@ -16,16 +16,16 @@ import java.io.File
 
 fun Application.configurePrintablesRouting() {
     routing {
-        post("/ping") {
-            call.respond(HttpStatusCode.OK)
-        }
+//        post("/ping") {
+//            call.respond(HttpStatusCode.OK)
+//        }
         post("/printables") {
             val request = call.receive<ModelCard>()
             call.respond(request)
         }
-        options("/printables") {
-            call.respond(HttpStatusCode.OK)
-        }
+//        options("/printables") {
+//            call.respond(HttpStatusCode.OK)
+//        }
 //        get("/printables3") {
 //            val html = File("/home/hram/IdeaProjects/KtorWebService/src/main/kotlin/features/html.txt").readText()
 //

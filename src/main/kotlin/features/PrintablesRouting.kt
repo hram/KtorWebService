@@ -1,5 +1,6 @@
 package ru.hram.features
 
+import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -19,28 +20,31 @@ fun Application.configurePrintablesRouting() {
             val request = call.receive<ModelCard>()
             call.respond(request)
         }
-        get("/printables3") {
-            val html = File("/home/hram/IdeaProjects/KtorWebService/src/main/kotlin/features/html.txt").readText()
-
-            val doc = Jsoup.parse(html)
-
-            val targetScript = doc.select("script[data-hash=1qez40r]").firstOrNull() ?: error("Не найден script с data-hash=\"1qez40r\"")
-
-            val json = Json { ignoreUnknownKeys = true }
-            val fetched = json.decodeFromString<FetchedScript>(targetScript.data())
-
-            val bodyAsJsonString = Json.decodeFromString<JsonObject>(targetScript.data())["body"]?.jsonPrimitive?.content ?: error("Поле 'body' отсутствует")
-
-            val graphResponse = json.decodeFromString<GraphResponse>(bodyAsJsonString)
-
-            call.respond(graphResponse.data.models.items)
+        options("/printables") {
+            call.respond(HttpStatusCode.OK)
         }
-
-        get("/printables2") {
-            val html = File("/home/hram/IdeaProjects/KtorWebService/src/main/kotlin/features/html.txt").readText()
-            val models = extractModelsFromDom(html)
-            call.respond(models)
-        }
+//        get("/printables3") {
+//            val html = File("/home/hram/IdeaProjects/KtorWebService/src/main/kotlin/features/html.txt").readText()
+//
+//            val doc = Jsoup.parse(html)
+//
+//            val targetScript = doc.select("script[data-hash=1qez40r]").firstOrNull() ?: error("Не найден script с data-hash=\"1qez40r\"")
+//
+//            val json = Json { ignoreUnknownKeys = true }
+//            val fetched = json.decodeFromString<FetchedScript>(targetScript.data())
+//
+//            val bodyAsJsonString = Json.decodeFromString<JsonObject>(targetScript.data())["body"]?.jsonPrimitive?.content ?: error("Поле 'body' отсутствует")
+//
+//            val graphResponse = json.decodeFromString<GraphResponse>(bodyAsJsonString)
+//
+//            call.respond(graphResponse.data.models.items)
+//        }
+//
+//        get("/printables2") {
+//            val html = File("/home/hram/IdeaProjects/KtorWebService/src/main/kotlin/features/html.txt").readText()
+//            val models = extractModelsFromDom(html)
+//            call.respond(models)
+//        }
     }
 }
 

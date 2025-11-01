@@ -38,6 +38,8 @@ dependencies {
 
     implementation("mysql:mysql-connector-java:8.0.33")
 
+    implementation("com.squareup.retrofit2:retrofit:3.0.0")
+
     testImplementation("io.ktor:ktor-server-test-host")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }

@@ -14,8 +14,11 @@ import com.github.kotlintelegrambot.bot
 import com.github.kotlintelegrambot.entities.ChatId
 import io.ktor.server.plugins.*
 import kotlinx.coroutines.delay
+import org.jetbrains.exposed.v1.core.Column
 import org.jetbrains.exposed.v1.core.Table
 import org.jetbrains.exposed.v1.core.and
+import org.jetbrains.exposed.v1.core.dao.id.EntityID
+import org.jetbrains.exposed.v1.core.dao.id.IdTable
 import org.jetbrains.exposed.v1.core.eq
 import org.jetbrains.exposed.v1.jdbc.Database
 import org.jetbrains.exposed.v1.jdbc.insert
@@ -31,15 +34,6 @@ fun Application.configureTrendingRouting() {
     routing {
         val telegramKey = environment.config.property("telegram.key").getString()
         val telegramGroupId = environment.config.property("telegram.group_id").getString().toLong()
-        val bot = bot {
-            token = telegramKey
-        }
-        Database.connect(
-            url = environment.config.property("database.url").getString(),
-            user = environment.config.property("database.user").getString(),
-            password = environment.config.property("database.password").getString(),
-            driver = "com.mysql.cj.jdbc.Driver",
-        )
 
         get("/trending") {
             if (getHeaderOrThrow("token") != environment.config.property("props.auth_token").getString()) {
@@ -54,6 +48,11 @@ fun Application.configureTrendingRouting() {
 //                        saveRepo(this.toDbName())
 //                    }
 //            }
+
+            val bot = bot {
+                token = telegramKey
+            }
+
             newRepos.forEach { repo ->
                 bot.sendMessage(ChatId.fromId(telegramGroupId), "${repo.url}\nStars: ${repo.stars}")
                     .onSuccess {

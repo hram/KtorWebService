@@ -5,8 +5,9 @@ ktor:
     deployment:
         port: 8080
 telegram:
-    key: "$TELEGRAM_KEY:443566725:"
-    group_id: "$TELEGRAM_GROUP_ID:"
+    key: "$TELEGRAM_KEY:"
+    group_id: "$TELEGRAM_GROUP_ID:-1001339143738"
+    printables_group_id: "$PRINTABLES_GROUP_ID:-1003202658864"
 database:
     url: "$DATABASE_URL:"
     user: "$DATABASE_USER:"
